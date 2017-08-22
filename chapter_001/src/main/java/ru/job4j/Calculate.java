@@ -1,8 +1,8 @@
 package ru.job4j;
 
 /**
- * Calculate
- * 
+ * Calculate.
+ *
  * @author Aleksandr Shigin
  * @version $Id$
  * @since 21.08.2017
@@ -10,11 +10,11 @@ package ru.job4j;
 
 public class Calculate {
 	/**
-	 * Main
+	 * Main.
 	 * @param args - args.
 	 */
 	public static void main(String[] args) {
 		System.out.println("Hello world");
-	} 
+	}
 
 }

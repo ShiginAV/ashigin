@@ -1,5 +1,5 @@
 /**
- * Package for calculate task
+ * Package for calculate task.
  * @autor Aleksandr Shigin
  * @version $Id$
  * @since 0.1
