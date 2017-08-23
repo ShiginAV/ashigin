@@ -23,13 +23,13 @@ public class CalculateTest {
         System.setOut(new PrintStream(out));
         Calculate.main(null);
         assertThat(
-            out.toString(),
-            is(
-                String.format(
-                    "Hello world%s",
-                    System.getProperty("line.separator")
+                out.toString(),
+                is(
+                        String.format(
+                                "Hello world%s",
+                                System.getProperty("line.separator")
+                        )
                 )
-            )
         );
     }
 }
