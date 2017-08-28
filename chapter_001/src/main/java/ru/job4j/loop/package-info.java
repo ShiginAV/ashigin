@@ -1,5 +1,5 @@
 /**
- * Package for counter task.
+ * Package for loop task.
  * @autor Aleksandr Shigin
  * @version $Id$
  * @since 0.1
