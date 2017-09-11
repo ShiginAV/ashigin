@@ -24,7 +24,7 @@ public class MergeArrays {
                 array[i] = rightArray[rightIndex++];
             } else if (rightIndex > rightArray.length - 1) {
                 array[i] = leftArray[leftIndex++];
-            } else if (leftArray[i] < rightArray[i]) {
+            } else if (leftArray[leftIndex] < rightArray[rightIndex]) {
                 array[i] = leftArray[leftIndex++];
             } else {
                 array[i] = rightArray[rightIndex++];

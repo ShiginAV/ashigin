@@ -22,4 +22,16 @@ public class MergeArraysTest {
         int[] expectArr = {1, 2, 3, 4, 5, 6};
         assertThat(resultArr, is(expectArr));
     }
+    /**
+     * Merge two arrays when first array longer than second.
+     */
+    @Test
+    public void whenFirstArrayLongerThanSecond() {
+        MergeArrays mergeArrays = new MergeArrays();
+        int[] leftArr = {2, 3, 4};
+        int[] rightArr = {1, 7};
+        int[] resultArr = mergeArrays.merge(leftArr, rightArr);
+        int[] expectArr = {1, 2, 3, 4, 7};
+        assertThat(resultArr, is(expectArr));
+    }
 }
