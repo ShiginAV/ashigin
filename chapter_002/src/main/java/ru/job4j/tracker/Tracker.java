@@ -85,7 +85,9 @@ public class Tracker {
                 itemsCopy[counter++] = this.items[index];
             }
         }
-        return itemsCopy;
+        Item[] arrayWithoutNulls = new Item[counter];
+        System.arraycopy(itemsCopy, 0, arrayWithoutNulls, 0, counter);
+        return arrayWithoutNulls;
     }
     /**
      * Find item by id.
