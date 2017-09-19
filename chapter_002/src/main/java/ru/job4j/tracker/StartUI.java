@@ -54,11 +54,13 @@ public class StartUI {
     private void editItem(Tracker tracker) {
         String id = input.ask("Enter id of item: ");
         Item previous = tracker.findById(id);
-        String name = input.ask("Enter new name of item: ");
-        String desc = input.ask("Enter new description of item: ");
-        Item next = new Item(name, desc, 1L);
-        next.setId(previous.getId());
-        tracker.update(next);
+        if (previous != null) {
+            String name = input.ask("Enter new name of item: ");
+            String desc = input.ask("Enter new description of item: ");
+            Item next = new Item(name, desc, 1L);
+            next.setId(previous.getId());
+            tracker.update(next);
+        }
     }
     /**
      * Delete item.
@@ -66,7 +68,11 @@ public class StartUI {
      */
     private void deleteItem(Tracker tracker) {
         String id = input.ask("Enter id of item: ");
-        tracker.delete(tracker.findById(id));
+        Item item = tracker.findById(id);
+        if (item != null) {
+            tracker.delete(item);
+        }
+
     }
     /**
      * Find item by name.
@@ -85,7 +91,10 @@ public class StartUI {
     private void findItemById(Tracker tracker) {
         String id = input.ask("Enter id of item: ");
         Item item = tracker.findById(id);
-        System.out.println("[ " + item.getId() + " | " + item.getName() + " | " + item.getDescription() + " ]");
+        if (item != null) {
+            System.out.println("[ " + item.getId() + " | " + item.getName() + " | " + item.getDescription() + " ]");
+        }
+
     }
     /***  Tracker menu.*/
     public void init() {
