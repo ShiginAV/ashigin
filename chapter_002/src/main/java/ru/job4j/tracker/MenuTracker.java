@@ -12,6 +12,8 @@ public class MenuTracker {
     private Tracker tracker;
     /*** Array of actions.*/
     private UserAction[] actions = new UserAction[7];
+    /*** Range of menu items.*/
+    private int[] range = {0, 1, 2, 3, 4, 5};
     /**
      * Constructor.
      * @param input - input
@@ -20,6 +22,13 @@ public class MenuTracker {
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
+    }
+    /**
+     * get range.
+     * @return - range
+     */
+    public int[] getRange() {
+        return this.range;
     }
     /*** Fills an array of actions.*/
     public void fillActions() {

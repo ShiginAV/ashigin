@@ -12,4 +12,11 @@ public interface Input {
      * @return scanner
      */
     String ask(String question);
+    /**
+     * Ask with range.
+     * @param question - question
+     * @param range - range
+     * @return - scanner
+     */
+    int ask(String question, int[] range);
 }
