@@ -7,11 +7,6 @@ package ru.job4j.tracker;
  */
 public interface UserAction {
     /**
-     * Get key.
-     * @return - key
-     */
-    int kay();
-    /**
      * Execute menu's item.
      * @param input - input
      * @param tracker - tracker

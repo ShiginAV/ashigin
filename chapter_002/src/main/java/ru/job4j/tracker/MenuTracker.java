@@ -11,7 +11,7 @@ public class MenuTracker {
     /*** Tracker.*/
     private Tracker tracker;
     /*** Array of actions.*/
-    private UserAction[] actions = new UserAction[7];
+    private UserAction[] actions = new UserAction[6];
     /*** Range of menu items.*/
     private int[] range = {0, 1, 2, 3, 4, 5};
     /**
@@ -32,12 +32,12 @@ public class MenuTracker {
     }
     /*** Fills an array of actions.*/
     public void fillActions() {
-        this.actions[0] = new MenuTracker.AddNewItem();
-        this.actions[1] = new MenuTracker.ShowAllItems();
-        this.actions[2] = new MenuTracker.EditItem();
-        this.actions[3] = new MenuTracker.DeleteItem();
-        this.actions[4] = new MenuTracker.FindByName();
-        this.actions[5] = new MenuTracker.FindById();
+        this.actions[0] = new MenuTracker.AddNewItem(0, "Add new Item");
+        this.actions[1] = new MenuTracker.ShowAllItems(1, "Show all items");
+        this.actions[2] = new MenuTracker.EditItem(2, "Edit item");
+        this.actions[3] = new MenuTracker.DeleteItem(3, "Delete item");
+        this.actions[4] = new MenuTracker.FindByName(4, "Find by name");
+        this.actions[5] = new MenuTracker.FindById(5, "Find by id");
     }
     /**
      * Select action.
@@ -56,14 +56,14 @@ public class MenuTracker {
     }
 
     /***Add new item.*/
-    private static class AddNewItem implements UserAction {
+    private static class AddNewItem extends BaseAction {
         /**
-         * Get key.
-         * @return - key
+         * Constructor.
+         * @param key - key
+         * @param name - name
          */
-        @Override
-        public int kay() {
-            return 0;
+        AddNewItem(int key, String name) {
+            super(key, name);
         }
         /**
          * Add new item.
@@ -76,25 +76,17 @@ public class MenuTracker {
             String desc = input.ask("Enter description of new item: ");
             tracker.add(new Item(name, desc, 1L));
         }
-        /**
-         * Show menu item.
-         * @return - string
-         */
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.kay(), " Add new Item");
-        }
     }
 
     /***Show all items.*/
-    private static class ShowAllItems implements UserAction {
+    private static class ShowAllItems extends BaseAction {
         /**
-         * Get key.
-         * @return - key
+         * Constructor.
+         * @param key - key
+         * @param name - name
          */
-        @Override
-        public int kay() {
-            return 1;
+        ShowAllItems(int key, String name) {
+            super(key, name);
         }
         /**
          * Show all items.
@@ -107,25 +99,17 @@ public class MenuTracker {
                 System.out.println("[ " + item.getId() + " | " + item.getName() + " | " + item.getDescription() + " ]");
             }
         }
-        /**
-         * Show menu item.
-         * @return - string
-         */
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.kay(), " Show all items");
-        }
     }
 
     /***Edit item.*/
-    private static class EditItem implements UserAction {
+    private static class EditItem extends BaseAction {
         /**
-         * Get key.
-         * @return - key
+         * Constructor.
+         * @param key - key
+         * @param name - name
          */
-        @Override
-        public int kay() {
-            return 2;
+        EditItem(int key, String name) {
+            super(key, name);
         }
         /**
          * Edit item.
@@ -144,25 +128,17 @@ public class MenuTracker {
                 tracker.update(next);
             }
         }
-        /**
-         * Show menu item.
-         * @return - string
-         */
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.kay(), " Edit item");
-        }
     }
 
     /***Delete item.*/
-    private static class DeleteItem implements UserAction {
+    private static class DeleteItem extends BaseAction {
         /**
-         * Get key.
-         * @return - key
+         * Constructor.
+         * @param key - key
+         * @param name - name
          */
-        @Override
-        public int kay() {
-            return 3;
+        DeleteItem(int key, String name) {
+            super(key, name);
         }
         /**
          * Delete item.
@@ -177,25 +153,17 @@ public class MenuTracker {
                 tracker.delete(item);
             }
         }
-        /**
-         * Show menu item.
-         * @return - string
-         */
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.kay(), " Delete item");
-        }
     }
 
     /***Find by name.*/
-    private static class FindByName implements UserAction {
+    private static class FindByName extends BaseAction {
         /**
-         * Get key.
-         * @return - key
+         * Constructor.
+         * @param key - key
+         * @param name - name
          */
-        @Override
-        public int kay() {
-            return 4;
+        FindByName(int key, String name) {
+            super(key, name);
         }
         /**
          * Find by name.
@@ -209,25 +177,17 @@ public class MenuTracker {
                 System.out.println("[ " + item.getId() + " | " + item.getName() + " | " + item.getDescription() + " ]");
             }
         }
-        /**
-         * Show menu item.
-         * @return - string
-         */
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.kay(), " Find by name");
-        }
     }
 
     /***Find by id.*/
-    private static class FindById implements UserAction {
+    private static class FindById extends BaseAction {
         /**
-         * Get key.
-         * @return - key
+         * Constructor.
+         * @param key - key
+         * @param name - name
          */
-        @Override
-        public int kay() {
-            return 5;
+        FindById(int key, String name) {
+            super(key, name);
         }
         /**
          * Find by id.
@@ -241,14 +201,6 @@ public class MenuTracker {
             if (item != null) {
                 System.out.println("[ " + item.getId() + " | " + item.getName() + " | " + item.getDescription() + " ]");
             }
-        }
-        /**
-         * Show menu item.
-         * @return - string
-         */
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.kay(), " Find by id");
         }
     }
 }

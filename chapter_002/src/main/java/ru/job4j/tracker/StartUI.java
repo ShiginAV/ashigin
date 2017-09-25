@@ -38,7 +38,7 @@ public class StartUI {
         } while (!"y".equals(input.ask("Exit? (y): ")));
     }
     /**
-     * Mine method.
+     * Main method.
      * @param args - args
      */
     public static void main(String[] args) {

@@ -25,7 +25,7 @@ public class ValidateInput extends ConsoleInput {
             } catch (NumberFormatException nfe) {
                 System.out.println("Enter validate data again!");
             }
-        } while(invalid);
+        } while (invalid);
         return key;
     }
 }
