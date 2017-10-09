@@ -27,8 +27,9 @@ public abstract class Figure {
     /**
      * Way of figure.
      * @param dist - cells coordinates
+     * @param board - board
      * @return cells array
      * @throws ImpossibleMoveException - if figure not move to coordinate
      */
-    public abstract Cell[] way(Cell dist) throws ImpossibleMoveException;
+    public abstract Cell[] way(Cell dist, Board board) throws ImpossibleMoveException;
 }

@@ -50,56 +50,14 @@ public class Board {
                 throw new FigureNotFoundException("Figure not found!!!");
             }
 
-            for (int j = 0; j < this.figures[i].way(dist).length; j++) {
+            for (int j = 0; j < this.figures[i].way(dist, this).length; j++) {
                 for (int k = 0; k < getPos(); k++) {
-                    if (this.figures[i].way(dist)[j].equals(this.figures[k].getPosition())) {
+                    if (this.figures[i].way(dist, this)[j].equals(this.figures[k].getPosition())) {
                         throw new OccupiedWayException("Occupied way!!!");
                     }
                 }
             }
         }
         return true;
-    }
-
-//===================== Bishop =====================
-    /*** Bishop.*/
-    public class Bishop extends Figure {
-        /**
-         * Constructor.
-         * @param position - position
-         */
-        public Bishop(Cell position) {
-            super(position);
-        }
-        @Override
-        public Cell[] way(Cell dist) throws ImpossibleMoveException {
-            int xA = super.getPosition().getX();
-            int yA = super.getPosition().getY();
-            int xB = dist.getX();
-            int yB = dist.getY();
-
-            for (int i = 0; i < getPos(); i++) {
-                if (getFigures()[i].getPosition().equals(dist)) {
-                    throw new ImpossibleMoveException("Impossible moving!!!");
-                }
-            }
-            if (Math.abs(xB - xA) == Math.abs(yB - yA)) {
-                Cell[] way = new Cell[Math.abs(xB - xA)];
-
-                for (int i = 0; i < way.length; i++) {
-                    int dx = (xB > xA) ? 1 : -1;
-                    int dy = (yB > yA) ? 1 : -1;
-
-                    Cell cell = new Cell(xA + dx, yA + dy);
-                    way[i] = cell;
-
-                    xA = cell.getX();
-                    yA = cell.getY();
-                }
-                return way;
-            } else {
-                throw new ImpossibleMoveException("Impossible moving!!!");
-            }
-        }
     }
 }
