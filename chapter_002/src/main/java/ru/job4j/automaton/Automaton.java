@@ -7,42 +7,46 @@ package ru.job4j.automaton;
  * @since 0.1
  */
 public class Automaton {
-    /*** Types of coins.*/
-    private int[] coinsType = {1, 2, 5, 10};
-    /*** Quantity coins by type.*/
-    private int[] coinsQuantity = {10, 10, 10, 10}; //1, 2, 5, 10
+    /*** Array of coins.*/
+    private Coin[] coins = {new Coin(1, 10), new Coin(2, 10), new Coin(5, 10), new Coin(10, 10)};
     /**
-     * Get coins quantity.
-     * @return - getCoinsQuantity
+     * Get coins.
+     * @return - coins
      */
-    public int[] getCoinsQuantity() {
-        return coinsQuantity;
+    public Coin[] getCoins() {
+        return this.coins;
     }
     /**
-     * Add coins by type.
-     * @param coin - coins type
-     * @param qty - coins quantity
+     * Add coin.
+     * @param coin - coin
      */
-    public void addCoins(int coin, int qty) {
-        int pos = 0;
-        for (int value : coinsType) {
-            if (value == coin) {
-                this.coinsQuantity[pos] += qty;
+    public void addCoin(Coin coin) {
+        for (Coin cn : this.coins) {
+            if (cn.getValue() == coin.getValue()) {
+                cn.setQuantity(cn.getQuantity() + coin.getQuantity());
             }
-            pos++;
         }
+    }
+    /**
+     * Cost of all coins.
+     * @param coins - coins array
+     * @return - int
+     */
+    private int costOfAllCoins(Coin[] coins) {
+        int allCoins = 0;
+        for (Coin coin : coins) {
+            allCoins += coin.getValue() * coin.getQuantity();
+        }
+        return allCoins;
     }
     /**
      * Enough coins in automaton.
-     * @param coins - quantity of change
+     * @param buyersCoins - quantity of coins
+     * @param price - price
      * @return - true or false
      */
-    private boolean enoughCoins(int coins) {
-        int available = 0;
-        for (int i = 0; i < coinsQuantity.length; i++) {
-            available += this.coinsType[i] * this.coinsQuantity[i];
-        }
-        return available >= coins;
+    private boolean enoughCoins(int price, Coin[] buyersCoins) {
+        return this.costOfAllCoins(this.coins) >= this.costOfAllCoins(buyersCoins) - price;
     }
     /**
      * Buy.
@@ -50,25 +54,40 @@ public class Automaton {
      * @param coins - coins
      * @return - string
      */
-    public String buy(int priceStuff, int coins) {
-        if (priceStuff > coins) {
+    public String buy(int priceStuff, Coin[] coins) {
+
+        if (priceStuff > this.costOfAllCoins(coins)) {
             return "Not enough money for buy!!!";
         }
 
-        if (!this.enoughCoins(coins - priceStuff)) {
+        if (!this.enoughCoins(priceStuff, coins)) {
             return "Not enough coins for change!!!";
         }
 
-        int pos = 3;
-        int balance = coins - priceStuff;
-        while (balance > 0) {
-            if (this.coinsQuantity[pos] != 0 && balance >= this.coinsType[pos]) {
-                balance -= this.coinsType[pos];
-                this.coinsQuantity[pos]--;
-            } else {
-                pos--;
-            }
+        for (Coin coin : coins) {
+            this.addCoin(coin);
         }
-        return "Change: " + (coins - priceStuff);
+
+        int balance = this.costOfAllCoins(coins) - priceStuff;
+        int moreValue = -1;
+        while (balance > 0) {
+            Coin maxValuesCoin = new Coin(0, 0);
+            for (Coin coin : this.coins) {
+                if (coin.getValue() > maxValuesCoin.getValue()) {
+                    if (coin.getQuantity() == 0 || coin.getValue() == moreValue) {
+                        continue;
+                    }
+                    maxValuesCoin = coin;
+                }
+            }
+            if (balance - maxValuesCoin.getValue() >= 0) {
+                balance -= maxValuesCoin.getValue();
+                maxValuesCoin.setQuantity(maxValuesCoin.getQuantity() - 1);
+            } else {
+                moreValue = maxValuesCoin.getValue();
+            }
+
+        }
+        return "Change: " + (this.costOfAllCoins(coins) - priceStuff);
     }
 }
