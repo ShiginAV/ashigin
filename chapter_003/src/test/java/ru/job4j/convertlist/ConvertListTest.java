@@ -31,4 +31,13 @@ public class ConvertListTest {
         int[][] expect = {{1, 2, 3}, {4, 5, 6}, {7, 0, 0}};
         assertThat(result, is(expect));
     }
+    /*** Input list of array, return list of integers.*/
+    @Test
+    public void whenListOfArraysThenListOfIntegers() {
+        ConvertList convertList = new ConvertList();
+        List<int[]> list = new ArrayList<>(Arrays.asList(new int[] {1, 2}, new int[] {3, 4, 5}));
+        List<Integer> result = convertList.convert(list);
+        List<Integer> expect = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+        assertThat(result, is(expect));
+    }
 }
