@@ -1,4 +1,8 @@
 package ru.job4j.tracker;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * MenuTracker.
  * @author Aleksandr Shigin
@@ -11,7 +15,8 @@ public class MenuTracker {
     /*** Tracker.*/
     private Tracker tracker;
     /*** Array of actions.*/
-    private UserAction[] actions = new UserAction[6];
+    //private UserAction[] actions = new UserAction[6];
+    private List<UserAction> actions = new ArrayList<>();
     /*** Range of menu items.*/
     private int[] range = {0, 1, 2, 3, 4, 5};
     /**
@@ -32,19 +37,19 @@ public class MenuTracker {
     }
     /*** Fills an array of actions.*/
     public void fillActions() {
-        this.actions[0] = new MenuTracker.AddNewItem(0, "Add new Item");
-        this.actions[1] = new MenuTracker.ShowAllItems(1, "Show all items");
-        this.actions[2] = new MenuTracker.EditItem(2, "Edit item");
-        this.actions[3] = new MenuTracker.DeleteItem(3, "Delete item");
-        this.actions[4] = new MenuTracker.FindByName(4, "Find by name");
-        this.actions[5] = new MenuTracker.FindById(5, "Find by id");
+        this.actions.add(new MenuTracker.AddNewItem(0, "Add new Item"));
+        this.actions.add(new MenuTracker.ShowAllItems(1, "Show all items"));
+        this.actions.add(new MenuTracker.EditItem(2, "Edit item"));
+        this.actions.add(new MenuTracker.DeleteItem(3, "Delete item"));
+        this.actions.add(new MenuTracker.FindByName(4, "Find by name"));
+        this.actions.add(new MenuTracker.FindById(5, "Find by id"));
     }
     /**
      * Select action.
      * @param key - key
      */
     public void select(int key) {
-        this.actions[key].execute(this.input, this.tracker);
+        this.actions.get(key).execute(this.input, this.tracker);
     }
     /*** Show menu.*/
     public void show() {
@@ -65,11 +70,7 @@ public class MenuTracker {
         AddNewItem(int key, String name) {
             super(key, name);
         }
-        /**
-         * Add new item.
-         * @param input - input
-         * @param tracker - tracker
-         */
+
         @Override
         public void execute(Input input, Tracker tracker) {
             String name = input.ask("Enter name of new item: ");
@@ -88,11 +89,7 @@ public class MenuTracker {
         ShowAllItems(int key, String name) {
             super(key, name);
         }
-        /**
-         * Show all items.
-         * @param input - input
-         * @param tracker - tracker
-         */
+
         @Override
         public void execute(Input input, Tracker tracker) {
             for (Item item : tracker.findAll()) {
@@ -111,11 +108,7 @@ public class MenuTracker {
         EditItem(int key, String name) {
             super(key, name);
         }
-        /**
-         * Edit item.
-         * @param input - input
-         * @param tracker - tracker
-         */
+
         @Override
         public void execute(Input input, Tracker tracker) {
             String id = input.ask("Enter id of item: ");
@@ -140,11 +133,7 @@ public class MenuTracker {
         DeleteItem(int key, String name) {
             super(key, name);
         }
-        /**
-         * Delete item.
-         * @param input - input
-         * @param tracker - tracker
-         */
+
         @Override
         public void execute(Input input, Tracker tracker) {
             String id = input.ask("Enter id of item: ");
@@ -165,11 +154,7 @@ public class MenuTracker {
         FindByName(int key, String name) {
             super(key, name);
         }
-        /**
-         * Find by name.
-         * @param input - input
-         * @param tracker - tracker
-         */
+
         @Override
         public void execute(Input input, Tracker tracker) {
             String name = input.ask("Enter name of item: ");
@@ -189,11 +174,7 @@ public class MenuTracker {
         FindById(int key, String name) {
             super(key, name);
         }
-        /**
-         * Find by id.
-         * @param input - input
-         * @param tracker - tracker
-         */
+
         @Override
         public void execute(Input input, Tracker tracker) {
             String id = input.ask("Enter id of item: ");

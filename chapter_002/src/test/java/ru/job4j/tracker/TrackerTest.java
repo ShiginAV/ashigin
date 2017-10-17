@@ -10,19 +10,15 @@ import static org.hamcrest.core.Is.is;
  * @since 0.1
  */
 public class TrackerTest {
-    /**
-     * Add item and find all.
-     */
+    /*** Add item and find all.*/
     @Test
     public void whenAddItemThenTrackerHasThatItem() {
         Tracker tracker = new Tracker();
         Item item = new Item("test", "testDescription", 123L);
         tracker.add(item);
-        assertThat(tracker.findAll()[0], is(item));
+        assertThat(tracker.findAll().get(0), is(item));
     }
-    /**
-     * Delete item.
-     */
+    /*** Delete item.*/
     @Test
     public void whenDeleteItemThenTrackerHasNotThatItem() {
         Tracker tracker = new Tracker();
@@ -32,9 +28,7 @@ public class TrackerTest {
         Tracker expectTracker = new Tracker();
         assertThat(tracker.findAll(), is(expectTracker.findAll()));
     }
-    /**
-     * Find by id and update item.
-     */
+    /*** Find by id and update item.*/
     @Test
     public void whenUpdateNameThenReturnNewName() {
         Tracker tracker = new Tracker();
@@ -45,14 +39,12 @@ public class TrackerTest {
         tracker.update(next);
         assertThat(tracker.findById(previous.getId()).getName(), is("test2"));
     }
-    /**
-     * Find items by name.
-     */
+    /*** Find items by name.*/
     @Test
     public void whenFindItemByNameThenReturnItemGivenName() {
         Tracker tracker = new Tracker();
         Item item = new Item("test", "testDescription", 123L);
         tracker.add(item);
-        assertThat(tracker.findByName("test")[0].getName(), is("test"));
+        assertThat(tracker.findByName("test").get(0).getName(), is("test"));
     }
 }
