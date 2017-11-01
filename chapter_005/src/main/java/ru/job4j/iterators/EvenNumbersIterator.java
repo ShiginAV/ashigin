@@ -17,6 +17,7 @@ public class EvenNumbersIterator implements Iterator<Integer> {
         if (this.numbers.length > this.index) {
             for (int i = this.index; i < this.numbers.length; i++) {
                 if (this.numbers[i] % 2 == 0) {
+                    this.index = i;
                     return true;
                 }
             }
@@ -26,10 +27,8 @@ public class EvenNumbersIterator implements Iterator<Integer> {
 
     @Override
     public Integer next() {
-        for (; this.index < this.numbers.length; this.index++) {
-            if (this.numbers[this.index] % 2 == 0) {
-                return this.numbers[this.index++];
-            }
+        if (this.hasNext()) {
+            return this.numbers[this.index++];
         }
         throw new NoSuchElementException();
     }
