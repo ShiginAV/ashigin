@@ -12,27 +12,23 @@ public class PrimeIterator implements Iterator<Integer> {
         this.numbers = numbers;
     }
 
-    private boolean isPrime(int indx) {
-        if (this.numbers[indx] != 1) {
-            boolean flag = true;
-            for (int j = 2; j <= this.numbers[indx] / 2; j++) {
-                if (this.numbers[indx] % j == 0) {
-                    flag = false;
-                    break;
-                }
-            }
-            if (flag) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     @Override
     public boolean hasNext() {
         if (this.numbers.length > this.index) {
             for (int i = this.index; i < this.numbers.length; i++) {
-                if (this.isPrime(i)) {
+                //check on prime number
+                if (this.numbers[i] == 1) {
+                    continue;
+                }
+                boolean isPrime = true;
+                for (int j = 2; j <= this.numbers[i] / 2; j++) {
+                    if (this.numbers[i] % j == 0) {
+                        isPrime = false;
+                        break;
+                    }
+                }
+                if (isPrime) {
+                    this.index = i;
                     return true;
                 }
             }
@@ -42,10 +38,8 @@ public class PrimeIterator implements Iterator<Integer> {
 
     @Override
     public Integer next() {
-        for (; this.index < this.numbers.length; this.index++) {
-            if (this.isPrime(this.index)) {
-                return this.numbers[this.index++];
-            }
+        if (this.hasNext()) {
+            return this.numbers[this.index++];
         }
         throw new NoSuchElementException();
     }
