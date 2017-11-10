@@ -15,7 +15,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
             @Override
             public boolean hasNext() {
-                return objects.length > position;
+                return index > position;
             }
 
             @Override
@@ -59,6 +59,7 @@ public class SimpleArray<T> implements Iterable<T> {
         if (position < this.index) {
             System.arraycopy(this.objects, position + 1,
                              this.objects, position, this.objects.length - position - 1);
+            this.objects[objects.length - 1] = null;
             this.index--;
         }
     }
