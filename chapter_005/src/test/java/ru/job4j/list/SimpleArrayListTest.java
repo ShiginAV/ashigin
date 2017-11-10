@@ -13,7 +13,7 @@ public class SimpleArrayListTest {
     //add & get element
     @Test
     public void whenAddElementThenElementAdded() {
-        SimpleArrayList<Integer> list = new SimpleArrayList<>(0);
+        SimpleArrayList<Integer> list = new SimpleArrayList<>(1);
         list.add(1);
         assertThat(list.get(0), is(1));
     }

@@ -1,5 +1,6 @@
 package ru.job4j.list;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -13,9 +14,6 @@ public class SimpleArrayList<E> implements Iterable<E> {
     }
 
     public SimpleArrayList(int capacity) {
-        if (capacity == 0) {
-            this.container = new Object[]{};
-        }
         if (capacity > 0) {
             this.container = new Object[capacity];
         }
@@ -23,11 +21,8 @@ public class SimpleArrayList<E> implements Iterable<E> {
 
     // add element
     public void add(E value) {
-        if (size == 0) {
-            container = new Object[1];
-        }
         if (size >= container.length) {
-            container = new Object[container.length + container.length];
+            container = Arrays.copyOf(container, container.length + container.length);
         }
         container[size++] = value;
     }
@@ -45,7 +40,7 @@ public class SimpleArrayList<E> implements Iterable<E> {
 
             @Override
             public boolean hasNext() {
-                return container.length > position && container[position] != null;
+                return position < size;
             }
 
             @Override
