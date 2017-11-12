@@ -1,6 +1,6 @@
 package ru.job4j.generic;
 
-public abstract class AbstractStore<T extends Base> implements Store {
+public abstract class AbstractStore<T extends Base> implements Store<T> {
     private SimpleArray<T> store;
 
     public AbstractStore(int size) {
@@ -19,20 +19,18 @@ public abstract class AbstractStore<T extends Base> implements Store {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public T add(Base model) {
-        this.store.add((T) model);
-        return (T) model;
+    public T add(T model) {
+        this.store.add(model);
+        return model;
     }
     
     @Override
-    @SuppressWarnings("unchecked")
-    public T update(Base model) {
+    public T update(T model) {
         int position = 0;
         for (T value : this.store) {
             if (value.getId().equals(model.getId())) {
-                this.store.update((T) model, position);
-                return (T) model;
+                this.store.update(model, position);
+                return model;
             }
             position++;
         }

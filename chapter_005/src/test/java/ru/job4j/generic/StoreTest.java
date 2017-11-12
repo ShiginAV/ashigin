@@ -8,7 +8,7 @@ public class StoreTest {
     //Add element
     @Test
     public void whenAddUserThenUserAddedInSimpleArray() {
-        UserStore<User> userStore = new UserStore<>(10);
+        UserStore userStore = new UserStore(10);
         User user = new User("1", "Alex");
         userStore.add(user);
         assertThat(userStore.getElement(user.getId()).getName(), is("Alex"));
@@ -16,7 +16,7 @@ public class StoreTest {
     //Update element
     @Test
     public void whenUpdateElementThenElementIsUpdated() {
-        UserStore<User> userStore = new UserStore<>(10);
+        UserStore userStore = new UserStore(10);
         User user = new User("1", "Alex");
         userStore.add(user);
         userStore.update(new User(user.getId(), "Ivan"));
@@ -25,7 +25,7 @@ public class StoreTest {
     //Delete element
     @Test(expected = NullPointerException.class)
     public void whenDeleteElementThenElementIsDeleted() {
-        UserStore<User> userStore = new UserStore<>(10);
+        UserStore userStore = new UserStore(10);
         User user = new User("1", "Alex");
         userStore.add(user);
         userStore.delete(user.getId());
