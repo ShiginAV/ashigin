@@ -24,16 +24,17 @@ public class SimpleLinkedList<E> implements Iterable<E> {
     }
 
     public E get(int index) {
-        if (index < size) {
-            Node<E> node = first;
-            for (int i = 0; i < index; i++) {
-                node = node.next;
-            }
-            return node.item;
-        } else {
+        if (index >= size) {
             throw new IndexOutOfBoundsException();
         }
+        Node<E> node = first;
+        for (int i = 0; i < index; i++) {
+            node = node.next;
+        }
+        return node.item;
     }
+
+
 
     public E deleteLast() {
         if (last == null) {
