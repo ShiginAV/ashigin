@@ -6,7 +6,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 public class SimpleHashSetTest {
-
     //Add and check contains specific element in list
     @Test
     public void whenAddElementThenSetContainSpecifiedElement() {
@@ -14,7 +13,6 @@ public class SimpleHashSetTest {
         hashSet.add(100);
         assertThat(hashSet.contains(100), is(true));
     }
-
     //Remove element
     @Test
     public void whenRemoveElementThenSetNotContainSpecifiedElement() {

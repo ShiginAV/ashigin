@@ -10,12 +10,10 @@ public class SimpleHashSet<E> {
         this.size = size;
         this.hashSet = new Object[size];
     }
-
     //Hash function
     private int hash(E e) {
         return e.hashCode() % size;
     }
-
     //Add unique element
     public boolean add(E e) {
         int key = hash(e);
@@ -26,13 +24,11 @@ public class SimpleHashSet<E> {
         count++;
         return true;
     }
-
     //Contains specified element
     public boolean contains(E e) {
         int key = hash(e);
         return (hashSet[key] != null && hashSet[key].equals(e));
     }
-
     //Remove element
     public boolean remove(E e) {
         if (!contains(e)) {
