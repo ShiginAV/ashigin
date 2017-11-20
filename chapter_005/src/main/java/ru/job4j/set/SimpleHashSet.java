@@ -12,7 +12,7 @@ public class SimpleHashSet<E> {
     }
     //Hash function
     private int hash(E e) {
-        return e.hashCode() % size;
+        return Math.abs(e.hashCode() % size);
     }
     //Add unique element
     public boolean add(E e) {
