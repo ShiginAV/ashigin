@@ -9,19 +9,29 @@ public class SimpleSetBasedLinkedList<T> implements Iterable<T> {
     private Node<T> last;
     private int size = 0;
 
-    //Add unique element
-    public boolean add(T value) {
-        //Checking duplicate
+    //if duplicate return true else false
+    private boolean isDuplicate(T value) {
         Node<T> node = first;
         if (node != null) {
             for (int i = 0; i < size; i++) {
                 Node<T> tmp = node;
                 if (node.item.equals(value)) {
-                    return false;
+                    return true;
                 }
-               node = tmp.next;
+                node = tmp.next;
             }
         }
+        return false;
+    }
+
+    //Add unique element
+    public boolean add(T value) {
+
+        //Checking duplicate
+        if (isDuplicate(value)) {
+            return false;
+        }
+
         // Add element
         Node<T> tmp = last;
         Node<T> newNode = new Node<>(value, null);
