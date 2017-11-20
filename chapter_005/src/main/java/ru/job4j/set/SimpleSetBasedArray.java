@@ -13,6 +13,17 @@ public class SimpleSetBasedArray<E> implements Iterable<E> {
         this.set = new Object[10];
     }
 
+    //if duplicate return true else false
+    private boolean isDuplicate(E value) {
+
+        for (int i = 0; i < size; i++) {
+            if (set[i].equals(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     //Add element if it is not duplicate.
     public boolean add(E value) {
 
@@ -22,10 +33,8 @@ public class SimpleSetBasedArray<E> implements Iterable<E> {
         }
 
         //Checking duplicate
-        for (int i = 0; i < size; i++) {
-            if (set[i].equals(value)) {
-                return false;
-            }
+        if (isDuplicate(value)) {
+            return false;
         }
         set[size++] = value;
         return true;
