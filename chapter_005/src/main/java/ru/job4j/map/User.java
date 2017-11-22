@@ -17,9 +17,17 @@ public class User {
         this.birthday = birthday;
     }
 
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + children;
+        result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
+        return result;
+    }
+
     public static void main(String[] args) {
-        User first = new User("Ivan", 1, new GregorianCalendar());
-        User second = new User("Ivan", 1, new GregorianCalendar());
+        User first = new User("Ivan", 1, new GregorianCalendar(1980, Calendar.NOVEMBER, 15));
+        User second = new User("Ivan", 1, new GregorianCalendar(1980, Calendar.NOVEMBER, 15));
 
         Map<User, Object> map = new HashMap<>();
         map.put(first, "first");
