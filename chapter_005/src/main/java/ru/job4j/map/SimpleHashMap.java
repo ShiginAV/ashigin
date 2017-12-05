@@ -1,6 +1,5 @@
 package ru.job4j.map;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -61,12 +60,29 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
     }
 
     // expand array of table
+    @SuppressWarnings("unchecked")
     private void expandTable() {
-        table = Arrays.copyOf(table, capacity + capacity);
+        capacity += capacity;
+        Node<K, V>[] newTable = new Node[capacity];
+        size = 0;
+        for (int i = 0; i < table.length; i++) {
+            int index;
+            if (table[i] != null) {
+                index = hash(table[i].key);
+
+                if (newTable[index] == null) {
+                    newTable[index] = table[i];
+                    size++;
+                } else {
+                    addNode(table[i], index, newTable);
+                }
+            }
+        }
+        table = newTable;
     }
 
     // replace value of node if keys are equal
-    private V replaceNode(Node<K, V> node, int index) {
+    private V replaceNode(Node<K, V> node, int index, Node<K, V>[] table) {
         for (Node<K, V> e = table[index]; e != null; e = e.next) {
             V oldValue = e.value;
             if (e.key == node.key || node.key.equals(e.key)) {
@@ -78,7 +94,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
     }
 
     // add node in start of linked list
-    private V addNodeInStart(Node<K, V> node, int index) {
+    private V addNodeInStart(Node<K, V> node, int index, Node<K, V>[] table) {
         V oldValue = table[index].value;
         node.next = table[index];
         table[index] = node;
@@ -86,11 +102,11 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
     }
 
     // add node in list
-    private V addNode(Node<K, V> node, int index) {
-        V oldValue = replaceNode(node, index);
+    private V addNode(Node<K, V> node, int index, Node<K, V>[] table) {
+        V oldValue = replaceNode(node, index, table);
 
         if (oldValue == null) {
-            oldValue = addNodeInStart(node, index);
+            oldValue = addNodeInStart(node, index, table);
             size++;
         }
         return oldValue;
@@ -101,15 +117,15 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
         Node<K, V> node = new Node<>(key, value, null);
         int index = hash(key);
 
+        if (size >= (int) (capacity * loadFactor)) {
+            expandTable();
+        }
+
         if (table[index] == null) {
             table[index] = node;
             size++;
         } else {
-            return addNode(node, index);
-        }
-
-        if (size >= capacity * loadFactor) {
-            expandTable();
+            return addNode(node, index, table);
         }
         return null;
     }
@@ -167,10 +183,6 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
             this.key = key;
             this.value = value;
             this.next = next;
-        }
-
-        public K getKey() {
-            return key;
         }
 
         public V getValue() {

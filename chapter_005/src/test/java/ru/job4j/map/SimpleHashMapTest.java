@@ -29,7 +29,7 @@ public class SimpleHashMapTest {
 
     @Test(expected = NoSuchElementException.class)
     public void hasNextNextSequentialInvocation() {
-        SimpleHashMap<Object, Object> map = new SimpleHashMap<>(10);
+        SimpleHashMap<Object, Object> map = new SimpleHashMap<>(5);
         map.insert(25, "dog");
         map.insert(13, "cat");
         map.insert(34, "fox");
