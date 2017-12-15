@@ -54,10 +54,16 @@ public class TreeTest {
 
     @Test
     public void whenTreeIsNotBinaryThenReturnFalse() {
-        Tree<String> tree = new Tree<>();
-        tree.add("first", "second");
-        tree.add("first", "third");
-        tree.add("first", "fore");
+        Tree<Integer> tree = new Tree<>();
+        tree.add(50, 70);
+        tree.add(50, 80);
+        tree.add(70, 90);
+        tree.add(70, 100);
+        tree.add(90, 110);
+        tree.add(90, 120);
+        tree.add(100, 180);
+        tree.add(100, 190);
+        tree.add(100, 290);
         assertThat(tree.isBinary(), is(false));
     }
 }

@@ -108,9 +108,9 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
             Node<E> element = queue.remove();
 
             if (element.children == null) {
-                break;
+                continue;
             }
-            if (element.children.size() != 2) {
+            if (element.children.size() > 2) {
                 return false;
             }
             queue.addAll(element.children);
