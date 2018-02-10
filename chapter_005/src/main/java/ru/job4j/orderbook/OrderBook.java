@@ -13,7 +13,7 @@ public class OrderBook {
     }
 
     public void execute() {
-        Parser parser = new Parser(orderBooks);
+        SAXPars parser = new SAXPars(orderBooks);
         parser.parse();
         OrdersCalculator ordersCalculator = new OrdersCalculator(orderBooks, result);
         ordersCalculator.calculate();
