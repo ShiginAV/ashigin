@@ -56,5 +56,13 @@ public class Counter {
         Thread wordsCount = new Thread(() ->  System.out.printf("Words: %d\n", counter.countWords()));
         wordsCount.start();
         spacesCount.start();
+        try {
+            System.out.println("Start");
+            spacesCount.join();
+            wordsCount.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Finish");
     }
 }
