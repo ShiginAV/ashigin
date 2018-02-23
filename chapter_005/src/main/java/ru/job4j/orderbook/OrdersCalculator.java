@@ -23,9 +23,9 @@ public class OrdersCalculator {
         Map<Float, Order> sell = new TreeMap<>();
 
         for (Order order : orders.values()) {
-            if (order.getOperation().equals("BUY")) {
+            if ("BUY".equals(order.getOperation())) {
                 addOrder(buy, order);
-            } else if (order.getOperation().equals("SELL")) {
+            } else if ("SELL".equals(order.getOperation())) {
                 addOrder(sell, order);
             }
         }
