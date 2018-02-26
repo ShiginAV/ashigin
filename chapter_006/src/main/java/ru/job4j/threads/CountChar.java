@@ -13,15 +13,15 @@ public class CountChar implements Runnable {
 
     public int countChar() {
         int count = 0;
-        try(BufferedReader buffer = new BufferedReader(new FileReader(filePath))) {
-            while(buffer.read() != -1) {
+        try (BufferedReader buffer = new BufferedReader(new FileReader(filePath))) {
+            while (buffer.read() != -1) {
                 if (Thread.currentThread().isInterrupted()) {
                     System.out.println("Thread was interrupted!!!");
                     break;
                 }
                 count++;
             }
-        } catch(IOException ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
         return count;

@@ -15,8 +15,8 @@ public class Counter {
         int ch;
         int count = 0;
         boolean isChar = true;
-        try(BufferedReader buffer = new BufferedReader(new FileReader(path))) {
-            while((ch = buffer.read()) != -1) {
+        try (BufferedReader buffer = new BufferedReader(new FileReader(path))) {
+            while ((ch = buffer.read()) != -1) {
                 if ((char) ch == ' ' || (char) ch == '\n') {
                     if (isChar) {
                         count++;
@@ -29,7 +29,7 @@ public class Counter {
             if (isChar) {
                 count++;
             }
-        } catch(IOException ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
         return count;
@@ -38,13 +38,13 @@ public class Counter {
     public int countSpaces() {
         int ch;
         int count = 0;
-        try(BufferedReader buffer = new BufferedReader(new FileReader(path))) {
-            while((ch = buffer.read()) != -1) {
+        try (BufferedReader buffer = new BufferedReader(new FileReader(path))) {
+            while ((ch = buffer.read()) != -1) {
                 if ((char) ch == ' ') {
                     count++;
                 }
             }
-        } catch(IOException ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
         return count;
