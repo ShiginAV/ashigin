@@ -2,24 +2,22 @@ package ru.job4j.monitoresynchronizy;
 
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
+
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 @ThreadSafe
 public class UserStorage {
     @GuardedBy("this")
-    private final HashMap<Integer, User> storage = new HashMap<>();
+    private final Map<Integer, User> storage = new HashMap<>();
 
-    public synchronized HashMap<Integer, User> getStorage() {
-        return storage;
+    public synchronized Map<Integer, User> getStorage() {
+        return Collections.unmodifiableMap(storage);
     }
 
     public synchronized boolean add(User user) {
-        if (storage.containsKey(user.getId())) {
-            return false;
-        }
-        storage.put(user.getId(), user);
-        return true;
-
+        return storage.putIfAbsent(user.getId(), user) == null;
     }
 
     public synchronized boolean update(User user) {
