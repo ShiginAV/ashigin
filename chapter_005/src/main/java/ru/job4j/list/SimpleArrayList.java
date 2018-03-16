@@ -5,14 +5,17 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
 
 @ThreadSafe
 public class SimpleArrayList<E> implements Iterable<E> {
-    private Object[] container;
-    private int size = 0;
-    private int modCount = 0;
-    private final Object lock = new Object();
+    @GuardedBy("this")
+    private volatile Object[] container;
+    @GuardedBy("this")
+    private volatile int size = 0;
+    @GuardedBy("this")
+    private volatile int modCount = 0;
 
     public SimpleArrayList() {
         this.container = new Object[10];
@@ -24,34 +27,28 @@ public class SimpleArrayList<E> implements Iterable<E> {
         }
     }
     // add element
-    public void add(E value) {
-        synchronized (lock) {
-            modCount++;
-            if (size >= container.length) {
-                container = Arrays.copyOf(container, container.length + container.length);
-            }
-            container[size++] = value;
+    public synchronized void add(E value) {
+        modCount++;
+        if (size >= container.length) {
+            container = Arrays.copyOf(container, container.length + container.length);
         }
+        container[size++] = value;
     }
     // get element by index
     @SuppressWarnings("unchecked")
     public synchronized E get(int index) {
-        synchronized (lock) {
-            return (E) container[index];
-        }
+        return (E) container[index];
     }
 
     @Override
-    public Iterator<E> iterator() {
+    public synchronized Iterator<E> iterator() {
         return new Iterator<E>() {
             int position = 0;
             int expectedModCount = modCount;
-
             @Override
             public boolean hasNext() {
                 return position < size;
             }
-
             @Override
             @SuppressWarnings("unchecked")
             public E next() {
@@ -61,9 +58,7 @@ public class SimpleArrayList<E> implements Iterable<E> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                synchronized (lock) {
-                    return (E) container[position++];
-                }
+                return (E) container[position++];
             }
         };
     }
