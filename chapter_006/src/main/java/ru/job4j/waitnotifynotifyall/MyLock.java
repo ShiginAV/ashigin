@@ -2,6 +2,7 @@ package ru.job4j.waitnotifynotifyall;
 
 public class MyLock {
     private boolean isLocked = false;
+    private Thread lockedBy = null;
 
     public synchronized void lock() {
         try {
@@ -12,10 +13,13 @@ public class MyLock {
             e.printStackTrace();
         }
         isLocked = true;
+        lockedBy = Thread.currentThread();
     }
 
     public synchronized void unlock() {
-        isLocked = false;
-        this.notify();
+        if (lockedBy == Thread.currentThread()) {
+            isLocked = false;
+            this.notifyAll();
+        }
     }
 }
